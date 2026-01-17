@@ -5,7 +5,7 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static io.restassured.RestAssured.*;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -14,11 +14,13 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 @Feature("FakeStore Product API")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)   // ✅ Enforce order
 public class FakeStoreApiTest extends BaseApiTest {
 
     static int productId;
 
     @Test
+    @Order(1)
     @Story("Get All Products")
     @Description("Validate GET /products returns list of products")
     public void getAllProducts() {
@@ -32,13 +34,14 @@ public class FakeStoreApiTest extends BaseApiTest {
                     .extract().response();
 
         int size = response.jsonPath().getList("$").size();
-        assertTrue(size >= 10);
+        assertTrue(size >= 10, "Product count should be >= 10");
 
         System.out.println("Total Products = " + size);
         response.jsonPath().getList("title").forEach(System.out::println);
     }
 
     @Test
+    @Order(2)
     @Story("Get Product By ID")
     @Description("Validate GET /products/1 schema and status")
     public void getProductById() {
@@ -53,6 +56,7 @@ public class FakeStoreApiTest extends BaseApiTest {
     }
 
     @Test
+    @Order(3)
     @Story("Create Product")
     @Description("Validate POST /products creates a product")
     public void createProduct() {
@@ -78,15 +82,20 @@ public class FakeStoreApiTest extends BaseApiTest {
                 .extract().response();
 
         productId = response.jsonPath().getInt("id");
+
+        // ✅ Critical assertion
         assertTrue(productId > 0, "Product ID was not created properly");
 
         System.out.println("Created Product ID = " + productId);
     }
 
     @Test
+    @Order(4)
     @Story("Update Product")
     @Description("Validate PUT /products updates product price")
     public void updateProduct() {
+
+        assertTrue(productId > 0, "Product ID must exist before update");
 
         String payload = """
             {
@@ -105,9 +114,12 @@ public class FakeStoreApiTest extends BaseApiTest {
     }
 
     @Test
+    @Order(5)
     @Story("Delete Product")
     @Description("Validate DELETE /products removes product")
     public void deleteProduct() {
+
+        assertTrue(productId > 0, "Product ID must exist before delete");
 
         given()
         .when()

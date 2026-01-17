@@ -40,7 +40,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- ✅ Allure JUnit 5 -->
+        <!--Allure JUnit 5 -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
@@ -59,7 +59,7 @@
                 <version>3.2.5</version>
             </plugin>
 
-            <!-- ✅ Allure Maven Plugin -->
+            <!--Allure Maven Plugin -->
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>

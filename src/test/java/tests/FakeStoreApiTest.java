@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.is;
 
 @Feature("FakeStore Product API")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)   // ✅ Enforce order
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)   //Enforce order
 public class FakeStoreApiTest extends BaseApiTest {
 
     static int productId;
@@ -83,7 +83,7 @@ public class FakeStoreApiTest extends BaseApiTest {
 
         productId = response.jsonPath().getInt("id");
 
-        // ✅ Critical assertion
+        //Critical assertion
         assertTrue(productId > 0, "Product ID was not created properly");
 
         System.out.println("Created Product ID = " + productId);

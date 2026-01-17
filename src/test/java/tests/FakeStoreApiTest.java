@@ -78,7 +78,7 @@ public class FakeStoreApiTest extends BaseApiTest {
                 .extract().response();
 
         productId = response.jsonPath().getInt("id");
-        assertTrue(productId > 0);
+        assertTrue(productId > 0, "Product ID was not created properly");
 
         System.out.println("Created Product ID = " + productId);
     }

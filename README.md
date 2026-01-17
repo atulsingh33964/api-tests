@@ -60,16 +60,6 @@ mvn clean install
 mvn clean test
 ```
 
-### Run Specific Test Class
-```bash
-mvn test -Dtest=FakeStoreApiTest
-```
-
-### Run with Specific Tags/Groups
-```bash
-mvn test -Dgroups="smoke"
-```
-
 ## Reports and Visualization
 
 ### Generate Allure Report
